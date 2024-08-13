@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6 lg:p-8">
                 <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                     <div class="mb-4">
-                        <a href="{{route("students.create")}}" class="bg-cyan-500 dark:bg-cyan-700 hover:bg-cyan-600 dark:hover:bg-cyan-800 text-white font-bold py-2 px-4 rounded">Create</a>
+                        <a href="{{route("students.create")}}" class="bg-cyan-500 dark:bg-cyan-700 hover:bg-cyan-600 dark:hover:bg-cyan-800 text-white font-bold py-2 px-4 rounded">Create Student</a>
                     </div>
                     <table class="table-auto w-full">
                         <thead>
@@ -33,6 +33,11 @@
                                 <td class="border px-4 py-2 text-gray-900 dark:text-white text-center">
                                     {{$student->age}}
                                 </td>
+                                <td class="border px-4 py-2 text-center">
+                                    <div class="flex justify-center">
+                                        <button class="bg-pink-400 dark:bg-pink-600 hover:bg-pink-500 dark:hover:bg-pink-700 text-white font-bold py-2 px-4 rounded" type="button" onclick="confirmDelete('{{$student->id}}')">Delete</button>
+                                    </div>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -42,3 +47,20 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    function confirmDelete(id) {
+        alertify.confirm("This is a confirm dialog.", function(e) {
+            if (e) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/students/${id}`;
+                form.innerHTML = '@csrf @method("DELETE")';
+                document.body.appendChild(form);
+                form.submit();
+            } else {
+                return false;
+            }
+        });
+    }
+</script>
