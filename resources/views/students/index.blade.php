@@ -35,6 +35,7 @@
                                 </td>
                                 <td class="border px-4 py-2 text-center">
                                     <div class="flex justify-center">
+                                        <a href="{{route('students.edit',$student->id)}}" class="bg-violet-500 dark:bg-violet-700 hover:bg-violet-600 dark:hover:bg-violet-800 text-white font-bold py-2 px-4 rounded mr-2">Edit</a>
                                         <button class="bg-pink-400 dark:bg-pink-600 hover:bg-pink-500 dark:hover:bg-pink-700 text-white font-bold py-2 px-4 rounded" type="button" onclick="confirmDelete('{{$student->id}}')">Delete</button>
                                     </div>
                                 </td>
@@ -50,7 +51,7 @@
 
 <script>
     function confirmDelete(id) {
-        alertify.confirm("This is a confirm dialog.", function(e) {
+        alertify.confirm("¿Confirm delete record?", function(e) {
             if (e) {
                 let form = document.createElement("form");
                 form.method = "POST";
@@ -59,6 +60,7 @@
                 document.body.appendChild(form);
                 form.submit();
             } else {
+                alertify.error('Cancel');
                 return false;
             }
         });
